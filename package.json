@@ -1,0 +1,30 @@
+{
+  "name": "hapi_rest_api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mbuchthal/hapi_rest_api.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mbuchthal/hapi_rest_api/issues"
+  },
+  "homepage": "https://github.com/mbuchthal/hapi_rest_api#readme",
+  "dependencies": {
+    "hapi": "^13.3.0",
+    "mongoose": "^4.4.13"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-http": "^2.0.1",
+    "gulp-eslint": "^2.0.0",
+    "gulp-mocha": "^2.2.0",
+    "mocha": "^2.4.5"
+  }
+}
