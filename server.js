@@ -2,7 +2,7 @@
 
 const Hapi = require('hapi');
 const server = new Hapi.Server();
-const db = require(__dirname + '/database')
+const db = require(__dirname + '/database');
 const Hero = require(__dirname + '/models/hero');
 const Jedi = require(__dirname + '/models/jedi');
 const config = require(__dirname + '/config');
