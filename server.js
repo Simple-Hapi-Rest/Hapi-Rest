@@ -2,9 +2,9 @@
 
 const Hapi = require('hapi');
 const server = new Hapi.Server();
-const mongoose = require('mongoose');
-const db = require(__dirname + '/database');
+const db = require(__dirname + '/database')
 const Hero = require(__dirname + '/models/hero');
+const Jedi = require(__dirname + '/models/jedi');
 const config = require(__dirname + '/config');
 
 server.connection({ port: config.server.port });
@@ -27,10 +27,21 @@ server.route({
 
 server.route({
   method: 'GET',
+  path: '/jedi',
+  handler: (request, reply) => {
+    Jedi.find(null, (err, Jedi) => {
+      if (err) console.log('error getting heroes');
+
+      reply(Jedi);
+    });
+  }
+});
+
+server.route({
+  method: 'GET',
   path: '/hero',
   handler: (request, reply) => {
     Hero.find(null, (err, Hero) => {
-      debugger;
       if (err) console.log('error getting heroes');
 
       reply(Hero);
@@ -43,4 +54,3 @@ server.start((err) => {
 
   console.log('Server running at:', server.info.uri);
 });
-
