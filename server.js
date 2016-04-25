@@ -2,7 +2,7 @@
 
 const Hapi = require('hapi');
 const server = new Hapi.Server();
-const db = require(__dirname + '/database');
+require(__dirname + '/database');
 const Hero = require(__dirname + '/models/hero');
 const Jedi = require(__dirname + '/models/jedi');
 const config = require(__dirname + '/config');
@@ -15,7 +15,6 @@ server.route({
   handler: (request, reply) => {
     Jedi.find(null, (err, Jedi) => {
       if (err) console.log('error getting heroes');
-
       reply(Jedi);
     });
   }
@@ -49,7 +48,7 @@ server.route({
   method: 'POST',
   path: '/hero',
   handler: (request, reply) => {
-    var newHero = new Hero(request.payload)
+    var newHero = new Hero(request.payload);
     newHero.save((err, data) => {
       if (err) console.log('error posting to heroes');
 
@@ -62,7 +61,7 @@ server.route({
   method: 'DELETE',
   path: '/hero/{id}',
   handler: (request, reply) => {
-    Hero.remove({ _id: request.params.id}, (err) => {
+    Hero.remove({ _id: request.params.id }, (err) => {
       if (err) console.log('error deleting from heroes');
 
       reply('deleted');
