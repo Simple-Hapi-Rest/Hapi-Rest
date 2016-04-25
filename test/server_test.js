@@ -2,27 +2,22 @@ const chai = require('chai');
 const expect = chai.expect;
 const chaiHttp = require('chai-http');
 chai.use(chaiHttp);
-const request = chai.request;
-const Hapi = require('Hapi');
 process.env.MONGODB_URI = 'mongodb://localhost/hapi_test_db';
 require('should');
 var Promise = require('bluebird');
 var server = require(__dirname + '/../server');
-
 const mongoose = require('mongoose');
 const Hero = require(__dirname + '/../models/hero');
 
-var port = process.env.PORT = 1234;
-
-function inject (options) {
-  return new Promise(function (resolve, reject) {
+function inject(options) {
+  return new Promise((resolve, reject) => {
     server.inject(options, resolve);
   });
 }
 
 describe('gets', () => {
-  it('should have this route', function () {
-    return inject({ method: 'GET', url: '/hero'}).then((response) => {
+  it('should have this route', () => {
+    return inject({ method: 'GET', url: '/hero' }).then((response) => {
       response.statusCode.should.eql(200);
     });
   });
@@ -32,14 +27,19 @@ describe('posts', () => {
   after((done) => {
     mongoose.connection.db.dropDatabase(() => {
       done();
-     });
+    });
   });
 
   it('should make post requests', () => {
-    return inject({ method: 'POST', url: '/hero', payload: {name: 'Hulk', powerLevel: 10, archNemesis: 'radiation', superPower: 'Super-strength'}}).then((response) => {
-      response.statusCode.should.eql(200);
-      expect(response.result).to.have.deep.property('name', 'Hulk');
-    });
+    return inject({ method: 'POST', url: '/hero', payload: {
+      name: 'Hulk',
+      powerLevel: 10,
+      archNemesis: 'radiation',
+      superPower: 'Super-strength' }
+      }).then((response) => {
+        response.statusCode.should.eql(200);
+        expect(response.result).to.have.deep.property('name', 'Hulk');
+      });
   });
 });
 
@@ -49,8 +49,9 @@ describe('methods that have current items in db - Delete/Put', () => {
       name: 'testhero',
       powerLevel: 0,
       superPower: ['testing'],
-      archNemesis: 'bugs'});
+      archNemesis: 'bugs' });
     testHero.save((err, data) => {
+      if (err) console.log(err);
       this.hero = data;
       done();
     });
@@ -59,7 +60,7 @@ describe('methods that have current items in db - Delete/Put', () => {
   afterEach((done) => {
     this.hero.remove((err) => {
       if (err) console.log(err);
-    done();
+      done();
     });
   });
 
@@ -70,16 +71,21 @@ describe('methods that have current items in db - Delete/Put', () => {
   });
 
   it('should make delete requests', () => {
-    return inject({ method: 'DELETE', url: '/hero/' + this.hero._id}).then((response) => {
+    return inject({ method: 'DELETE', url: '/hero/' + this.hero._id }).then((response) => {
       response.statusCode.should.eql(200);
       expect(response.payload).to.eql('deleted');
     });
   });
 
   it('should make put requests', () => {
-    return inject({ method: 'put', url: '/hero/' + this.hero._id, payload: {name: 'Hulk', powerLevel: 10, archNemesis: 'radiation', superPower: 'Super-strength'}}).then((response) => {
-      response.statusCode.should.eql(200);
-      expect(response.payload).to.eql('updated');
-    });
+    return inject({ method: 'put', url: '/hero/' + this.hero._id, payload: {
+      name: 'Hulk',
+      powerLevel: 10,
+      archNemesis: 'radiation',
+      superPower: 'Super-strength' }
+      }).then((response) => {
+        response.statusCode.should.eql(200);
+        expect(response.payload).to.eql('updated');
+      });
   });
 });
