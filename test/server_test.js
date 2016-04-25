@@ -5,88 +5,84 @@ chai.use(chaiHttp);
 const request = chai.request;
 const assert = require('chai').assert;
 const Hapi = require('Hapi');
-// const mongoose = require('mongoose');
-// const Hero = require(__dirname + '/../models/hero');
-// const Jedi = require(__dirname + '/../models/jedi');
-// var server = require(__dirname + '/../server');
-var port = process.env.PORT = 1234;
 process.env.MONGODB_URI = 'mongodb://localhost/hapi_test_db';
-require(__dirname + '/../server');
+require('should');
+var Promise = require('bluebird');
+var server = require(__dirname + '/../server');
 
-// const hapiTest = require('hapi-test');
-// var plugin = require(__dirname + 'plugin');
-// var server;
+const mongoose = require('mongoose');
+const Hero = require(__dirname + '/../models/hero');
 
+var port = process.env.PORT = 1234;
 
-// before((done) => {
-//   server = new Hapi.Server();
-//   server.connection({
-//     port:8888
-//   });
-//
-//   server.register({
-//     name: 'plugin',
-//     version: '0.0.1'
-//     register: plugin.register
-//   }, done);
-// });
-//
-// it('can now be used', (done) => {
-//   hapiTest({ server: server })
-//       .get('/person')
-//       .assert(200, done);
-// });
-//
+function inject (options) {
+  return new Promise(function (resolve, reject) {
+    server.inject(options, resolve);
+  });
+}
 
-//
-// const reqOpts = {
-//   method: 'GET',
-//   url: '/hero'
-// };
-//
-// describe('Server', () => {
-//   it('gives me the work', () => {
-//     Server.inject(reqOpts, (res) => {
-//       expect(res.statusCode).to.equal(200);
-//       expect(res.result).to.equal();
-//     });
-//   });
-// });
-//
-//
-//
-//
-describe('the GET requests to our servers', () => {
-  it('should bring all the contents from the DB', (done) => {
-    request('localhost:' + port)
-    .get('/hero')
-    .end((err, res) => {
-      expect(err).to.eql(null);
-      expect(Array.isArray(res.body)).to.eql(true);
-      console.log(res.body);
-      expect(res.body.length).to.eql(0);
-      done();
+describe('gets', () => {
+  it('should have this route', function () {
+    return inject({ method: 'GET', url: '/hero'}).then((response) => {
+      response.statusCode.should.eql(200);
     });
   });
 });
-//
-// describe('the POST to the database', () => {
-//   it('should send some test info to the database', (done) => {
-//     request('localhost:' + port)
-//     .post('/hero')
-//     .send({
-//       name: 'testman',
-//       powerLevel: 'over 9000',
-//       superPower: 'break shit',
-//       archNemesis: 'Javascript'
-//     })
-//     .end((err, res) => {
-//       expect(err).to.eql(null);
-//       expect(res.body.name).to.eql('testman');
-//       expect(res.body.powerLevel).to.eql('over 9000');
-//       expect(res.body.superPower).to.eql('break shit');
-//       expect(res.body.archNemesis).to.eql('Javascript');
-//       done();
-//     });
-//   });
-// });
+
+describe('posts', () => {
+  after((done) => {
+    mongoose.connection.db.dropDatabase(() => {
+      done();
+     });
+  });
+
+  it('should make post requests', () => {
+    return inject({ method: 'POST', url: '/hero', payload: {name: 'Hulk', powerLevel: 10, archNemesis: 'radiation', superPower: 'Super-strength'}}).then((response) => {
+      response.statusCode.should.eql(200);
+      expect(response.result).to.have.deep.property('name', 'Hulk');
+    });
+  });
+});
+
+describe('methods that have current items in db - Delete/Put', () => {
+  beforeEach((done) => {
+    var testHero = new Hero({
+      name: 'testhero',
+      powerLevel: 0,
+      superPower: ['testing'],
+      archNemesis: 'bugs'});
+    testHero.save((err, data) => {
+      this.hero = data;
+      done();
+    });
+  });
+
+  afterEach((done) => {
+    this.hero.remove((err) => {
+      if (err) console.log(err);
+    done();
+    });
+  });
+
+  after((done) => {
+    mongoose.connection.db.dropDatabase(() => {
+      done();
+    });
+  });
+
+  it('should make delete requests', () => {
+    return inject({ method: 'DELETE', url: '/hero/' + this.hero._id}).then((response) => {
+      response.statusCode.should.eql(200);
+      expect(response.payload).to.eql('deleted');
+    });
+  });
+
+  it('should make put requests', () => {
+    return inject({ method: 'put', url: '/hero/' + this.hero._id, payload: {name: 'Hulk', powerLevel: 10, archNemesis: 'radiation', superPower: 'Super-strength'}}).then((response) => {
+      response.statusCode.should.eql(200);
+      expect(response.payload).to.eql('updated');
+
+      console.log(response);
+    });
+  });
+});
