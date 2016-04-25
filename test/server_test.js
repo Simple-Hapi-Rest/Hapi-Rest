@@ -9,7 +9,7 @@ const mongoose = require('mongoose');
 const Hero = require(__dirname + '/../models/hero');
 
 function inject(options) {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     server.inject(options, resolve);
   });
 }
