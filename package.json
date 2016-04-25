@@ -13,7 +13,7 @@
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/mbuchthal/hapi_rest_api/issues"
+    "url": "https://github.com/Simple-Hapi-Rest/Hapi-Rest/issues"
   },
   "homepage": "https://github.com/Simple-Hapi-Rest/Hapi-Rest",
   "dependencies": {
