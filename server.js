@@ -14,7 +14,7 @@ server.route({
   path: '/jedi',
   handler: (request, reply) => {
     Jedi.find(null, (err, Jedi) => {
-      if (err) console.log('error getting heroes');
+      if (err) console.log('error getting jedis');
 
       reply(Jedi);
     });
@@ -49,7 +49,7 @@ server.route({
   method: 'POST',
   path: '/hero',
   handler: (request, reply) => {
-    var newHero = new Hero(request.payload)
+    var newHero = new Hero(request.payload);
     newHero.save((err, data) => {
       if (err) console.log('error posting to heroes');
 
@@ -62,7 +62,7 @@ server.route({
   method: 'DELETE',
   path: '/hero/{id}',
   handler: (request, reply) => {
-    Hero.remove({ _id: request.params.id}, (err) => {
+    Hero.remove({ _id: request.params.id }, (err) => {
       if (err) console.log('error deleting from heroes');
 
       reply('deleted');
