@@ -4,7 +4,6 @@ const chaiHttp = require('chai-http');
 chai.use(chaiHttp);
 process.env.MONGODB_URI = 'mongodb://localhost/hapi_test_db';
 require('should');
-var Promise = require('bluebird');
 var server = require(__dirname + '/../server');
 const mongoose = require('mongoose');
 const Hero = require(__dirname + '/../models/hero');
