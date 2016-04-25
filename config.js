@@ -7,6 +7,6 @@ module.exports = exports = {
   database: {
     host: '127.0.0.1',
     port: 27017,
-    db: 'hero_db' || 'jedi_sith_db'
+    db: 'hero_db'
   }
 };
