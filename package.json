@@ -4,18 +4,18 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "server_test.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mbuchthal/hapi_rest_api.git"
+    "url": "git+https://github.com/Simple-Hapi-Rest/Hapi-Rest"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/mbuchthal/hapi_rest_api/issues"
+    "url": "https://github.com/Simple-Hapi-Rest/Hapi-Rest/issues"
   },
-  "homepage": "https://github.com/mbuchthal/hapi_rest_api#readme",
+  "homepage": "https://github.com/Simple-Hapi-Rest/Hapi-Rest",
   "dependencies": {
     "hapi": "^13.3.0",
     "mongoose": "^4.4.13"
@@ -23,8 +23,12 @@
   "devDependencies": {
     "chai": "^3.5.0",
     "chai-http": "^2.0.1",
+    "gulp": "^3.9.1",
     "gulp-eslint": "^2.0.0",
     "gulp-mocha": "^2.2.0",
-    "mocha": "^2.4.5"
+    "hapi-test": "^5.0.0",
+    "lab": "^10.3.1",
+    "mocha": "^2.4.5",
+    "should": "^8.3.1"
   }
 }
