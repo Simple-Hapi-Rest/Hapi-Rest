@@ -11,17 +11,6 @@ server.connection({ port: config.server.port });
 
 server.route({
   method: 'GET',
-  path: '/jedi',
-  handler: (request, reply) => {
-    Jedi.find(null, (err, Jedi) => {
-      if (err) console.log('error getting heroes');
-      reply(Jedi);
-    });
-  }
-});
-
-server.route({
-  method: 'GET',
   path: '/hero',
   handler: (request, reply) => {
     Hero.find(null, (err, Hero) => {
