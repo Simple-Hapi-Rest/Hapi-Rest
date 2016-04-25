@@ -22,7 +22,7 @@ A GET request will return all data in the appropriate collection.
 
 ### POST
 
-A POST request will allow users to add a hero or villain to their collection. Posts should be made
+A POST request will allow users to add a hero to their collection. Posts should be made
 to:
 ```
 /hero
