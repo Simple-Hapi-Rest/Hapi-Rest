@@ -1,4 +1,3 @@
-
 const mongoose = require('mongoose');
 
 var heroSchema = new mongoose.Schema({
