@@ -1,5 +1,7 @@
 # hapi_rest_api
 
+This application uses the hapi framework to create a simple CRUD application.
+
 ## One Rest Resource API
 
 This is a simple one resource api.  The resource uses MongoDB as a database.  In order to
