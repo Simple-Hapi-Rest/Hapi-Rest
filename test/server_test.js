@@ -1,19 +1,21 @@
 const chai = require('chai');
-// const expect = chai.expect;
+const expect = chai.expect;
 const chaiHttp = require('chai-http');
 chai.use(chaiHttp);
-// const request = chai.request;
+const request = chai.request;
 const assert = require('chai').assert;
 const Hapi = require('Hapi');
 // const mongoose = require('mongoose');
 // const Hero = require(__dirname + '/../models/hero');
 // const Jedi = require(__dirname + '/../models/jedi');
 // var server = require(__dirname + '/../server');
-// var port = process.env.PORT = 1234;
-process.env.MONGO_URI = 'mongodb://localhost/hapi_test_db';
-const hapiTest = require('hapi-test');
-var plugin = require(__dirname + 'plugin');
-var server;
+var port = process.env.PORT = 1234;
+process.env.MONGODB_URI = 'mongodb://localhost/hapi_test_db';
+require(__dirname + '/../server');
+
+// const hapiTest = require('hapi-test');
+// var plugin = require(__dirname + 'plugin');
+// var server;
 
 
 // before((done) => {
@@ -54,18 +56,19 @@ var server;
 //
 //
 //
-// describe('the GET requests to our servers', () => {
-//   it('should bring all the contents from the DB', (done) => {
-//     request('localhost:' + port)
-//     .get('/hero')
-//     .end((err, res) => {
-//       expect(err).to.eql(null);
-//       expect(Array.isArray(res.body)).to.eql(true);
-//       expect(res.body.length).to.eql(0);
-//       done();
-//     });
-//   });
-// });
+describe('the GET requests to our servers', () => {
+  it('should bring all the contents from the DB', (done) => {
+    request('localhost:' + port)
+    .get('/hero')
+    .end((err, res) => {
+      expect(err).to.eql(null);
+      expect(Array.isArray(res.body)).to.eql(true);
+      console.log(res.body);
+      expect(res.body.length).to.eql(0);
+      done();
+    });
+  });
+});
 //
 // describe('the POST to the database', () => {
 //   it('should send some test info to the database', (done) => {
