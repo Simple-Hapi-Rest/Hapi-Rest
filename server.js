@@ -4,7 +4,6 @@ const Hapi = require('hapi');
 const server = new Hapi.Server();
 require(__dirname + '/database');
 const Hero = require(__dirname + '/models/hero');
-const Jedi = require(__dirname + '/models/jedi');
 const config = require(__dirname + '/config');
 
 server.connection({ port: config.server.port });
