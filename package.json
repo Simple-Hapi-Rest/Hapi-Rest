@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mbuchthal/hapi_rest_api.git"
+    "url": "git+https://github.com/Simple-Hapi-Rest/Hapi-Rest"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/mbuchthal/hapi_rest_api/issues"
+    "url": "https://github.com/Simple-Hapi-Rest/Hapi-Rest/issues"
   },
-  "homepage": "https://github.com/mbuchthal/hapi_rest_api#readme",
+  "homepage": "https://github.com/Simple-Hapi-Rest/Hapi-Rest",
   "dependencies": {
     "hapi": "^13.3.0",
     "mongoose": "^4.4.13"

@@ -3,7 +3,6 @@ const expect = chai.expect;
 const chaiHttp = require('chai-http');
 chai.use(chaiHttp);
 const request = chai.request;
-const assert = require('chai').assert;
 const Hapi = require('Hapi');
 process.env.MONGODB_URI = 'mongodb://localhost/hapi_test_db';
 require('should');
@@ -81,8 +80,6 @@ describe('methods that have current items in db - Delete/Put', () => {
     return inject({ method: 'put', url: '/hero/' + this.hero._id, payload: {name: 'Hulk', powerLevel: 10, archNemesis: 'radiation', superPower: 'Super-strength'}}).then((response) => {
       response.statusCode.should.eql(200);
       expect(response.payload).to.eql('updated');
-
-      console.log(response);
     });
   });
 });
