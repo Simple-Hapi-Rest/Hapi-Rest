@@ -48,7 +48,8 @@ describe('methods that have current items in db - Delete/Put', () => {
       name: 'testhero',
       powerLevel: 0,
       superPower: ['testing'],
-      archNemesis: 'bugs' });
+      archNemesis: 'bugs'
+    });
     testHero.save((err, data) => {
       if (err) console.log(err);
       this.hero = data;
